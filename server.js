@@ -2,6 +2,7 @@ const next = require('next')
 const Koa = require('koa')
 const router = require('koa-route')
 const LRUCache = require('lru-cache')
+const fs = require('fs.promised');
 
 const port = parseInt(process.env.PORT, 10) || 8868
 const dev = process.env.NODE_ENV !== 'production'
@@ -63,6 +64,10 @@ app.prepare()
     const server = new Koa()
 
     server.use(router.get('/', ctx => renderAndCache(ctx, '/index')))
+    server.use(router.get('/document', async ctx => ctx.response.body = await fs.readFile('./demo1.html', 'utf8')))
+    server.use(router.get('/document1', async ctx => ctx.response.body = await fs.readFile('/demos/demo1.html', 'utf8')))
+    server.use(router.get('/document2', async ctx => ctx.response.body = await fs.readFile('./pages/demos/demo1.html', 'utf8')))
+    server.use(router.get('/err', ctx => renderAndCache(ctx, '/_error2')))
     server.use(router.get('/search', ctx => renderAndCache(ctx, '/search')))
     server.use(router.get('/loan', ctx => renderAndCache(ctx, '/1-loan/1-home')))
     server.use(router.get('/loan/go', ctx => renderAndCache(ctx, '/1-loan/3-goLoan')))
