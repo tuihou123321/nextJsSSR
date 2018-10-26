@@ -1,0 +1,41 @@
+.am-list-content{
+
+}
+.am-navbar{
+  height: 0.45rem;
+}
+
+.am-navbar-left {
+  padding-left: 0.15rem;
+  font-size: 0.16rem;
+}
+
+.am-navbar-title {
+  font-size: 0.18rem;
+}
+
+.am-navbar-right {
+  font-size: 0.16rem;
+  margin-right: 0.15rem;
+}
+
+.am-icon-md {
+  width: 0.22rem;
+  height: 0.22rem;
+}
+.am-icon-lg {
+  width: 0.36rem;
+  height: 0.36rem;
+}
+.am-tabs-default-bar-bottom .am-tabs-default-bar-tab, .am-tabs-default-bar-top .am-tabs-default-bar-tab{
+  padding:0.08rem 0;
+}
+.am-tabs-default-bar-tab {
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 0.15rem;
+  height: 0.435rem;
+  line-height: 0.435rem;
+}

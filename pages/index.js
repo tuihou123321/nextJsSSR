@@ -19,6 +19,7 @@ import {
 } from '@components'
 import Header from "../components/Header/Header"
 
+
 const util = require('util')
 @reduxPage
 @connect(({ home }) => ({ home }))
@@ -72,15 +73,7 @@ export default class extends Component {
     }
     return (
       <div>
-        <Header/>
-        我是首页{this.state.value}
-        <p>
-        {this.state.value2}
-      </p>
-        <Link href={"/search"}  className={"red p10"}>{name}</Link>
-        <p>
-          <a href="/search">普通A链接</a>
-        </p>
+        <Header title="心理课程" border="true" />
       </div>
     )
   }

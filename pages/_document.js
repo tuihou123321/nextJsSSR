@@ -21,6 +21,9 @@ export default class MyDocument extends Document {
           <meta name="version" content="1.0.0" />
           <link rel="stylesheet" href={`${path}/static/styles/antd_mobile_min.css`} />
           <link rel="stylesheet" href={`${path}/static/styles/app_min.css?8`} />
+          <link rel="stylesheet" href={`${path}/static/css/common.css?8`} />
+          <link rel="stylesheet" href={`${path}/static/css/antdEdit.css?8`} />
+          <link rel="stylesheet" href={`${path}/static/css/public.css?8`} />
           <title>嘟嘟e贷</title>
         </Head>
         <body>
