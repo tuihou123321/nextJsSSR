@@ -9,7 +9,7 @@ import Link from "next/link"
 import {
   ErrorFetch,
   Layout,
-  Nav,
+  // Nav,
   Btn,
   WrapLink,
   HomeMessage,
@@ -18,6 +18,8 @@ import {
   ProductList,
 } from '@components'
 import Header from "../components/Header/Header"
+import Nav from "../components/Nav/Nav"
+import TestLists from "../components/TestLists/TestLists"
 
 
 const util = require('util')
@@ -27,7 +29,7 @@ const util = require('util')
 export default class extends Component {
   state={
     value:10,
-    value2:0
+    value2:0,
   }
   //getInitialProps,next.js中的方法（可在服务器或客户端运行）
   //返回一个对象，这个对象react组件可以通过this.props来接收
@@ -42,9 +44,23 @@ export default class extends Component {
     const { store, isServer } = ctx
     if (!store.getState().home) {
       try {
-        const homeFetch = await http.get('home', null, isServer)
+        const homeFetch = await http.post('/test/categories', null, isServer,{isNew:true})
         const homeData = homeFetch.data
-        store.dispatch(getHome(homeData))
+
+        const listsDataFetch = await http.post('/test/list', {
+          page:1,
+          pageSize:10,
+          cateId:1
+        }, isServer,{isNew:true})
+        const listsDataResult = listsDataFetch.data
+        let {list,total}=listsDataResult;
+
+        return {
+          tabs:homeData,
+          listsData:list,
+          total
+        }
+        // store.dispatch(getHome(homeData))
       } catch (error) {
         const err = util.inspect(error)
         return { err }
@@ -54,6 +70,15 @@ export default class extends Component {
          name:"xiaoming",
       age:18
     }
+  }
+  getListsData(id){
+    console.log(id);
+    // this.setState({
+    //   page:1,
+    //   listsData:[]
+    // },()=>{
+    //   this.loadMore(id);
+    // })
   }
   componentWillMount=()=>{
     this.setState({
@@ -67,13 +92,18 @@ export default class extends Component {
   }
   render() {
     //把后台的错误处理交给前端处理；
-    const { name, err } = this.props
+    const { name, err,tabs,listsData } = this.props
+    console.log(tabs);
     if (err) {
       return <ErrorFetch err={err} />
     }
     return (
       <div>
         <Header title="心理课程" border="true" />
+        <Nav tabs={tabs} getListsData={(id)=>this.getListsData(id)}/>
+        <div>
+          {TestLists(listsData)}
+        </div>
       </div>
     )
   }

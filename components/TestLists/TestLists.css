@@ -1,0 +1,7 @@
+.lists2 .itemRight{
+    border-bottom: 1px solid #dddddd !important;
+}
+
+.lists2 .itemRight:last-child{
+    border-bottom: 0 !important;
+}

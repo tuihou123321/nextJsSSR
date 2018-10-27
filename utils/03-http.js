@@ -8,8 +8,13 @@ const test = process.env.NODE_TEST === 'test'
 
 const callApi = (url, method, data, isServer = false, options = {}) => {
   const opts = { ...options }
+
+  let baseURL=isServer ? ((pro && !test) ? 'http://jr.duduapp.net/api/' : 'http://jr.duduapp.net/api/') : '/api/';
+  if(opts.isNew){
+    baseURL="https://easy-mock.com/mock/5b1f3f4f7deaef37dc71f2ad/BG-mobile";
+  }
   return axios(Object.assign({}, {
-    baseURL: isServer ? ((pro && !test) ? 'http://jr.duduapp.net/api/' : 'http://jr.duduapp.net/api/') : '/api/',
+    baseURL: baseURL,
     url,
     method,
     params: method === 'get' ? data : {}, // 添加在请求URL后面的参数
@@ -22,6 +27,6 @@ export default {
   callApi,
   get: (url, data = {}, isServer) => callApi(url, 'get', data, isServer),
   put: (url, data = {}, isServer) => callApi(url, 'put', data, isServer),
-  post: (url, data = {}, isServer) => callApi(url, 'post', data, isServer),
+  post: (url, data = {}, isServer,isNew={}) => callApi(url, 'post', data, isServer,isNew),
   delete: (url, data = {}, isServer) => callApi(url, 'delete', data, isServer),
 }
