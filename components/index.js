@@ -29,3 +29,9 @@ export { default as CardRecommend } from './3-01-Recommend'
 // me 4
 export { default as SwitchList } from './4-01-SwitchList'
 export { default as ChangeList } from './4-02-ChangeList'
+
+//test测试页面组件
+export { default as Header} from "./Header/Header"
+export { default as Footer} from "./Footer/Footer"
+export { default as NavBar} from "./Nav/Nav"
+export { default as TestLists} from "./TestLists/TestLists"

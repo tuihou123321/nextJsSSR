@@ -83,8 +83,6 @@ app.prepare()
     server.use(router.get('/me/feedback', ctx => renderAndCache(ctx, '/3-me/6-feedback')))
     server.use(router.get('/me/data', ctx => renderAndCache(ctx, '/3-me/7-myData', 'noCache')))
     server.use(router.get('/test/start/:id', ctx => renderAndCache(ctx, '/Test/Start', 'noCache')))
-    server.use(router.get('/test/testing/:id', ctx => renderAndCache(ctx, '/Test/Testing', 'noCache')))
-    server.use(router.get('/test/report/:id', ctx => renderAndCache(ctx, '/Test/Report', 'noCache')))
 
     server.use(async (ctx) => {
       await handle(ctx.req, ctx.res)

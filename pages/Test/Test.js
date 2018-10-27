@@ -3,12 +3,17 @@
  */
 import React, { Component } from 'react';
 import { Toast} from 'antd-mobile';
-import Header from "../../Components/Header/Header";
-import {getTestLists,getTestCategories} from "../../api/api"
-import Nav from "../../Components/Nav/Nav"
-import TestLists from "../../Components/TestLists/TestLists"
-import UserListsWrap from "../../Components/UserListsWrap/UserListsWrap"
+// import {getTestLists,getTestCategories} from "../../api/api"
+// import UserListsWrap from "../../Components/UserListsWrap/UserListsWrap"
 import $ from "jquery"
+
+import {
+  Header,
+  NavBar,
+  TestLists,
+  Footer
+} from '@components'
+
 
 export default class Test extends Component {
   state = {
@@ -27,25 +32,25 @@ export default class Test extends Component {
       pageSize,
       cateId:id   //类型id
     }
-    Toast.loading("加载中...",0)
-    getTestLists(param,(result)=>{
-      let {list,total}=result;
-      let {listsData}=this.state;
-      if(list.length>0){
-        ++page;
-        //合并两个数组；
-        listsData=listsData.concat(list);
-      }
-      this.setState({
-        loading: true,
-        listsData,
-        page,
-        total   //总数量
-      });
-      Toast.hide();
-    },()=>{
-      Toast.hide();
-    })
+    // Toast.loading("加载中...",0)
+    // getTestLists(param,(result)=>{
+    //   let {list,total}=result;
+    //   let {listsData}=this.state;
+    //   if(list.length>0){
+    //     ++page;
+    //     //合并两个数组；
+    //     listsData=listsData.concat(list);
+    //   }
+    //   this.setState({
+    //     loading: true,
+    //     listsData,
+    //     page,
+    //     total   //总数量
+    //   });
+    //   Toast.hide();
+    // },()=>{
+    //   Toast.hide();
+    // })
   }
   loadMoreFun(){
     $(window).on("scroll",()=>{
@@ -64,11 +69,11 @@ export default class Test extends Component {
     })
   }
   getTestCategories(){
-    getTestCategories({},(result)=>{
-      this.setState({
-        tabs:result
-      })
-    })
+    // getTestCategories({},(result)=>{
+    //   this.setState({
+    //     tabs:result
+    //   })
+    // })
   }
   componentDidMount(){
     this.getTestCategories();
@@ -85,12 +90,12 @@ export default class Test extends Component {
       }
         return (
             <div>
-                <Header title="心理测试" history={history}/>
-                   <Nav tabs={tabs} getListsData={(id)=>this.getListsData(id)}/>
+                <Header title="心理测试"/>
+                   <NavBar tabs={tabs} getListsData={(id)=>this.getListsData(id)}/>
                   <div>
-                    {TestLists(listsData,history)}
+                    {/*{TestLists(listsData)}*/}
                   </div>
-              { UserListsWrap(loading,total,listsData.length) }
+              {/*{ UserListsWrap(loading,total,listsData.length) }*/}
             </div>
         );
     }

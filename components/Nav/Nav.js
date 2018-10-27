@@ -4,7 +4,7 @@
 import React, { PureComponent } from 'react';
 import { Tabs, WhiteSpace } from 'antd-mobile';
 
-export default class  Nav extends PureComponent{
+export default class  NavBar extends PureComponent{
   constructor(props, context) {
     super(props, context);
   }

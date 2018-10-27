@@ -90,13 +90,9 @@ export function isIOS(){
   return a;
 }
 //从右到左依次算
-export function getLastParam(index=0){
-  if(routerType==="hash"){
-    return window.location.hash.split("?")[0].split("/").reverse()[index];
-  }
-  else{
-    return window.location.href.split("?")[0].split("/").reverse()[index];
-  }
+export function getLastParam(url){
+  if(!url){url=window.location.href;}
+  return  url.split("?")[0].split("/").reverse()[0];
 }
 
 //转换成时/分/秒
