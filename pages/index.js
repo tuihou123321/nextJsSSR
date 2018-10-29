@@ -20,6 +20,7 @@ import {
   NavBar,
   TestLists
 } from '@components'
+// import {getData} from "../static/js/common"
 
 
 const util = require('util')
@@ -35,26 +36,43 @@ export default class extends Component {
   //返回一个对象，这个对象react组件可以通过this.props来接收
   static async getInitialProps(ctx){
     // err req res pathname query asPath isServer
-    console.log(ctx);
-    const { store, isServer } = ctx
+    // console.log(ctx);
+    const { store, isServer,req,headers } = ctx
     if (!store.getState().home) {
+      let params={};
       try {
-        const homeFetch = await http.post('/test/categories', null, isServer,{isNew:true})
+        const user = ctx.cookie;
+        console.log(2,user);
+
+        // if(ctx.cookies.get("appId")){
+        //   let appId=ctx.cookies.get("appId");
+        //   let userInfo=ctx.cookies.get("userInfo");
+        //   let {uid, accessToken}=userInfo;
+        //   let params2={
+        //     appId,
+        //     uid,
+        //     accessToken
+        //   };
+        //   params=params2;
+        // }
+        const homeFetch = await http.post('/test/categories',params, isServer,{isNew:true})
         const homeData = homeFetch.data
-        const listsDataFetch = await http.post('/test/list', {
-          page:1,
-          pageSize:10,
-          cateId:1
-        }, isServer,{isNew:true})
+
+        const listsDataFetch = await http.post('/test/list', {page:1, pageSize:10, cateId:1}, isServer,{isNew:true})
         const listsDataResult = listsDataFetch.data
-        let {list,total}=listsDataResult;
+        // return {
+        //   tabs:homeData || [],
+        //   listsData:listsDataResult.list || [],
+        //   total:listsDataResult.total || 0
+        // }
         return {
-          tabs:homeData,
-          listsData:list,
-          total
+          tabs: [],
+          listsData:[],
+          total:0
         }
         // store.dispatch(getHome(homeData))
       } catch (error) {
+        console.log(error);
         const err = util.inspect(error)
         return { err }
       }
@@ -88,15 +106,18 @@ export default class extends Component {
   render() {
     //把后台的错误处理交给前端处理；
     const { name, err,tabs,listsData } = this.props
-    if (err) {
-      return <ErrorFetch err={err} />
-    }
+    console.log(err);
+    console.log(1000);
+    // console.log(this.props);
+    // if (err) {
+    //   return <ErrorFetch err={err} />
+    // }
     return (
       <div>
         <Header title="心理课程" border="true" />
-        <NavBar tabs={tabs} getListsData={(id)=>this.getListsData(id)}/>
+        {tabs &&   <NavBar tabs={tabs} getListsData={(id)=>this.getListsData(id)}/>}
         <div>
-          {TestLists(listsData)}
+          {listsData && TestLists(listsData)}
         </div>
       </div>
     )

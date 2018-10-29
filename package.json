@@ -40,6 +40,7 @@
     "chart.js": "^2.7.1",
     "classname": "^0.0.0",
     "cookie": "^0.3.1",
+    "cookie-parser": "^1.4.3",
     "date-fns": "^1.29.0",
     "eslint": "^4.13.1",
     "eslint-config-airbnb": "^16.1.0",

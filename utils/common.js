@@ -46,17 +46,8 @@ export function checkPassword(value){
 
 export function getCompanyPY(){
   //判断是不是本地调试环境
-  if( window.location.host.indexOf(":3000")<0){
-    let companyPY=window.location.host.split(".")[0];
-    return companyPY;
-  }
-  else {
-    if(isDev==="mock" || isDev==="dev"){
-      return "geely";
-    }
-    else{
-      return "yld"
-    }
+  if(process.env.NODE_ENV !== 'production'){
+    return "geely";
   }
 }
 

@@ -62,6 +62,8 @@ function renderAndCache(ctx, pagePath, noCache, queryParams = null) {
 app.prepare()
   .then(() => {
     const server = new Koa()
+    //引入服务端cookie管理工具
+    // server.use(cookieParser());
 
     server.use(router.get('/', ctx => renderAndCache(ctx, '/index')))
     // server.use(router.get('/document', async ctx => ctx.response.body = await fs.readFile('./demo1.html', 'utf8')))
@@ -83,6 +85,7 @@ app.prepare()
     server.use(router.get('/me/feedback', ctx => renderAndCache(ctx, '/3-me/6-feedback')))
     server.use(router.get('/me/data', ctx => renderAndCache(ctx, '/3-me/7-myData', 'noCache')))
     server.use(router.get('/test/start/:id', ctx => renderAndCache(ctx, '/Test/Start', 'noCache')))
+    server.use(router.get('/loginTest', ctx => renderAndCache(ctx, '/Login/Login', 'noCache')))
 
     server.use(async (ctx) => {
       await handle(ctx.req, ctx.res)
