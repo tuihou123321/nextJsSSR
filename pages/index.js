@@ -28,9 +28,8 @@ const util = require('util')
 
 export default class extends Component {
   state={
-    page:1,
-    pageSize:10,
-    cateId:""
+    value:10,
+    value2:0,
   }
   //getInitialProps,next.js中的方法（可在服务器或客户端运行）
   //返回一个对象，这个对象react组件可以通过this.props来接收
@@ -40,11 +39,13 @@ export default class extends Component {
     const { store, isServer } = ctx
     if (!store.getState().home) {
       try {
-        //tabs请求
         const homeFetch = await http.post('/test/categories', null, isServer,{isNew:true})
         const homeData = homeFetch.data
-        //列表初始请求
-        const listsDataFetch = await http.post('/test/list', {page:1, pageSize:10, cateId:1}, isServer,{isNew:true})
+        const listsDataFetch = await http.post('/test/list', {
+          page:1,
+          pageSize:10,
+          cateId:1
+        }, isServer,{isNew:true})
         const listsDataResult = listsDataFetch.data
         let {list,total}=listsDataResult;
         return {
@@ -59,7 +60,7 @@ export default class extends Component {
       }
     }
   }
-   loadMore=async (id)=>{
+  loadMore=async (id)=>{
     let {page,pageSize}=this.state;
     const listsDataFetch = await http.post('/test/list',{
       page,

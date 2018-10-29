@@ -2,7 +2,7 @@ const next = require('next')
 const Koa = require('koa')
 const router = require('koa-route')
 const LRUCache = require('lru-cache')
-const fs = require('fs.promised');
+// const fs = require('fs.promised');
 
 const port = parseInt(process.env.PORT, 10) || 8868
 const dev = process.env.NODE_ENV !== 'production'
@@ -62,11 +62,13 @@ function renderAndCache(ctx, pagePath, noCache, queryParams = null) {
 app.prepare()
   .then(() => {
     const server = new Koa()
+    //引入服务端cookie管理工具
+    // server.use(cookieParser());
 
     server.use(router.get('/', ctx => renderAndCache(ctx, '/index')))
-    server.use(router.get('/document', async ctx => ctx.response.body = await fs.readFile('./demo1.html', 'utf8')))
-    server.use(router.get('/document1', async ctx => ctx.response.body = await fs.readFile('/demos/demo1.html', 'utf8')))
-    server.use(router.get('/document2', async ctx => ctx.response.body = await fs.readFile('./pages/demos/demo1.html', 'utf8')))
+    // server.use(router.get('/document', async ctx => ctx.response.body = await fs.readFile('./demo1.html', 'utf8')))
+    // server.use(router.get('/document1', async ctx => ctx.response.body = await fs.readFile('/demos/demo1.html', 'utf8')))
+    // server.use(router.get('/document2', async ctx => ctx.response.body = await fs.readFile('./pages/demos/demo1.html', 'utf8')))
     server.use(router.get('/err', ctx => renderAndCache(ctx, '/_error2')))
     server.use(router.get('/search11', ctx => renderAndCache(ctx, '/search')))
     server.use(router.get('/loan', ctx => renderAndCache(ctx, '/1-loan/1-home')))
@@ -83,6 +85,7 @@ app.prepare()
     server.use(router.get('/me/feedback', ctx => renderAndCache(ctx, '/3-me/6-feedback')))
     server.use(router.get('/me/data', ctx => renderAndCache(ctx, '/3-me/7-myData', 'noCache')))
     server.use(router.get('/test/start/:id', ctx => renderAndCache(ctx, '/Test/Start', 'noCache')))
+    server.use(router.get('/loginTest', ctx => renderAndCache(ctx, '/Login/Login', 'noCache')))
 
     server.use(async (ctx) => {
       await handle(ctx.req, ctx.res)

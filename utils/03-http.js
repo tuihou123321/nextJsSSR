@@ -11,7 +11,8 @@ const callApi = (url, method, data, isServer = false, options = {}) => {
 
   let baseURL=isServer ? ((pro && !test) ? 'http://jr.duduapp.net/api/' : 'http://jr.duduapp.net/api/') : '/api/';
   if(opts.isNew){
-    baseURL="https://easy-mock.com/mock/5b1f3f4f7deaef37dc71f2ad/BG-mobile";
+    // baseURL="https://easy-mock.com/mock/5b1f3f4f7deaef37dc71f2ad/BG-mobile";
+    baseURL="http://testbgapi.yidianling.com/v1";
   }
   return axios(Object.assign({}, {
     baseURL: baseURL,

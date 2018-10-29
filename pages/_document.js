@@ -20,6 +20,7 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           {/*<meta name="version" content="1.0.0" />*/}
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+          <script src={`${path}/static/js/rem.js`} />
           <link rel="stylesheet" href={`${path}/static/styles/antd_mobile_min.css`} />
           <link rel="stylesheet" href={`${path}/static/styles/app_min.css?8`} />
           <link rel="stylesheet" href={`${path}/static/css/common.css?8`} />
@@ -31,7 +32,6 @@ export default class MyDocument extends Document {
           {this.props.customValue}
           <Main />
           <NextScript />
-          <script src={`${path}/static/js/rem.js`} />
           <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" />
           <script src={`${path}/static/scripts/hd.js`} />
           <script src={`${path}/static/scripts/local-storage.js`} />
