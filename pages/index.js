@@ -34,12 +34,29 @@ export default class extends Component {
   //getInitialProps,next.js中的方法（可在服务器或客户端运行）
   //返回一个对象，这个对象react组件可以通过this.props来接收
   static async getInitialProps(ctx){
+    console.log(10);
     // err req res pathname query asPath isServer
-    console.log(ctx);
-    const { store, isServer } = ctx
+    const {store, req, res, isServer,} = ctx
     if (!store.getState().home) {
+
       try {
-        const homeFetch = await http.post('/test/categories', null, isServer,{isNew:true})
+        let params={};
+        let allCookie=null;
+        if (req) {
+          allCookie = req.headers.cookie
+          console.log(1,allCookie);
+          token = cookie.parse(String(allCookie)).userInfo
+          let {accessToken,uid} = JSON.parse(token);
+          params.accessToken=accessToken;
+          params.uid=uid;
+        } else {
+          allCookie = document.cookie
+          console.log(allCookie);
+          // token = cookie.parse(String(allCookie)).userInfo
+        }
+        console.log(params);
+
+        const homeFetch = await http.post('/test/categories', params, isServer,{isNew:true})
         const homeData = homeFetch.data
         const listsDataFetch = await http.post('/test/list', {
           page:1,
@@ -88,16 +105,16 @@ export default class extends Component {
   render() {
     //把后台的错误处理交给前端处理；
     const { name, err,tabs,listsData } = this.props
-    if (err) {
-      return <ErrorFetch err={err} />
-    }
+    console.log(err);
+    // if (err) {
+    //   return <ErrorFetch err={err} />
+    // }
     return (
       <div>
         <Header title="心理课程" border="true" />
-        <NavBar tabs={tabs} getListsData={(id)=>this.getListsData(id)}/>
-        <div>
-          {TestLists(listsData)}
-        </div>
+        {tabs && tabs.length>0 &&  <NavBar tabs={tabs} getListsData={(id)=>this.getListsData(id)}/>}
+        {listsData && listsData.length>0 &&  <div>{TestLists(listsData)}</div>}
+
       </div>
     )
   }
