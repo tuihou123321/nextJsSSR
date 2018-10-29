@@ -115,9 +115,9 @@ export default class extends Component {
     const {
       dataParam, currentTitle, selectList, banner,
     } = this.state
-    if (err) {
-      return <ErrorFetch err={err} />
-    }
+    // if (err) {
+    //   return <ErrorFetch err={err} />
+    // }
     return (
       <Layout title="贷款-列表">
         <SwitchSelect

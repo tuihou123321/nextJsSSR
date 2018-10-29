@@ -50,9 +50,9 @@ export default class extends Component {
   render() {
     const { home, err } = this.props
     const { messageList } = this.state
-    if (err) {
-      return <ErrorFetch err={err} />
-    }
+    // if (err) {
+    //   return <ErrorFetch err={err} />
+    // }
     if (!home) return null
     return (
       <Layout title="首页">
