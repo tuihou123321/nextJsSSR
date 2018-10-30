@@ -1,4 +1,4 @@
-import axios from 'axios'
+import $ from 'jquery'
 // axios config https://github.com/axios/axios#request-config
 // const myApi = 'https://www.easy-mock.com/mock/58fff6e5739ac1685205acb1/data/'
 
@@ -14,14 +14,37 @@ const callApi = (url, method, data, isServer = false, options = {}) => {
     // baseURL="https://easy-mock.com/mock/5b1f3f4f7deaef37dc71f2ad/BG-mobile";
     baseURL="http://testbgapi.yidianling.com/v1";
   }
-  return axios(Object.assign({}, {
-    baseURL: baseURL,
-    url,
+  // return axios(Object.assign({}, {
+  //   baseURL: baseURL,
+  //   url,
+  //   method,
+  //   params: method === 'get' ? data : {}, // 添加在请求URL后面的参数
+  //   data: method !== 'get' ? data : {}, // 适用于 PUT POST PATCH
+  //   withCredentials: true, // 请求时是否携带cookie
+  // }, opts)).then(data => data.data)
+
+  let resultLast=null
+
+  $.ajax({
+    async: false,  //当async为false时，相当于async,await效果，同步
     method,
-    params: method === 'get' ? data : {}, // 添加在请求URL后面的参数
-    data: method !== 'get' ? data : {}, // 适用于 PUT POST PATCH
-    withCredentials: true, // 请求时是否携带cookie
-  }, opts)).then(data => data.data)
+    url:baseURL+url,
+    data:method !== 'get' ? data : {},
+    success:function(result){
+      resultLast=result;
+    },error:function(xhr){
+      resultLast=xhr;
+      console.log("错误提示： " + xhr.status + " " + xhr.statusText);
+    }
+  });
+
+  console.log(10,resultLast);
+
+  //模拟axios数据结构
+  return {
+    data:resultLast
+  }
+
 }
 
 export default {

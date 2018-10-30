@@ -79,9 +79,9 @@ export default  class Login extends Component {
            Toast.loading("加载中...",0)
             //用户开始登陆
           const homeFetch = await http.post('/user/login', params, null,{isNew:true})
+          console.log(homeFetch);
           const result = homeFetch.data
-          // localStorage.setItem("userInfo",JSON.stringify(result));  //存储：把obj 对象转成json数据格式 ；
-          // localStorage.setItem("appId",appId);  //存储：把obj 对象转成json数据格式 ；
+
           //存在cookies里面
           Cookie.set("userInfo",JSON.stringify(result));
           Cookie.set("appId",appId);
@@ -90,7 +90,7 @@ export default  class Login extends Component {
           this.setState({
             isLogining:false
           })
-          // Router.push("/");
+          Router.push("/");
         })
     }
     componentDidMount(){
